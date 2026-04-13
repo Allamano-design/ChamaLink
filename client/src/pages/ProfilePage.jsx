@@ -17,6 +17,9 @@ export default function ProfilePage() {
     phoneNumber: '',
   });
 
+  // This removes the "/api" from the end of your Render URL so we can link to images correctly
+  const API_BASE_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+
   useEffect(() => {
     const fetchProfile = async () => {
       if (!isAuthenticated || !token) {
@@ -34,6 +37,8 @@ export default function ProfilePage() {
           fullName: data.user.fullName || '',
           phoneNumber: data.user.phoneNumber || '',
         });
+      } catch (error) {
+        console.error("Profile fetch error:", error);
       } finally {
         setLoading(false);
       }
@@ -106,27 +111,27 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/50 pt-28 pb-20 px-6">
+    <div className="min-h-screen bg-slate-50/50 pt-28 pb-20 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           
           {/* Header Section */}
-          <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
             <div>
-              <h1 className="text-4xl font-black text-slate-900 tracking-tight">Account Settings</h1>
+              <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Account Settings</h1>
               <p className="text-slate-500 font-medium mt-1">Manage your personal information and preferences</p>
             </div>
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="px-6 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition shadow-lg active:scale-95"
+                className="w-full md:w-auto px-6 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition shadow-lg active:scale-95"
               >
                 Edit Profile
               </button>
             )}
           </div>
 
-          <div className="grid md:grid-cols-12 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             
             {/* Left Column: Avatar Card */}
             <div className="md:col-span-4">
@@ -135,7 +140,7 @@ export default function ProfilePage() {
                   <div className="w-32 h-32 rounded-[2.5rem] overflow-hidden shadow-2xl ring-4 ring-indigo-50 bg-slate-100 flex items-center justify-center text-5xl">
                     {profile?.profilePicture ? (
                       <img
-                        src={`http://localhost:5000${profile.profilePicture}`}
+                        src={`${API_BASE_URL}${profile.profilePicture}`}
                         alt="Profile"
                         className="w-full h-full object-cover"
                       />
@@ -177,9 +182,8 @@ export default function ProfilePage() {
             {/* Right Column: Information Fields */}
             <div className="md:col-span-8">
               <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 md:p-10">
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   
-                  {/* Field Wrapper Component would go here, mapped below */}
                   {[
                     { label: 'Full Name', value: profile?.fullName, icon: '👤', field: 'fullName' },
                     { label: 'Email Address', value: profile?.email, icon: '✉️', field: null },
@@ -205,7 +209,7 @@ export default function ProfilePage() {
                             className="bg-transparent w-full font-bold text-slate-900 outline-none"
                           />
                         ) : (
-                          <p className="font-bold text-slate-900">{item.value}</p>
+                          <p className="font-bold text-slate-900 truncate">{item.value}</p>
                         )}
                       </div>
                     </div>
@@ -216,7 +220,7 @@ export default function ProfilePage() {
                   <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex gap-4 mt-10 pt-10 border-t border-slate-50"
+                    className="flex flex-col sm:flex-row gap-4 mt-10 pt-10 border-t border-slate-50"
                   >
                     <button
                       onClick={handleSave}
@@ -243,7 +247,6 @@ export default function ProfilePage() {
                       <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center relative z-10">
                          📊
                       </div>
-                      {/* Decorative circle */}
                       <div className="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-600/20 rounded-full blur-3xl group-hover:bg-indigo-600/40 transition-all duration-700"></div>
                    </div>
                 )}
