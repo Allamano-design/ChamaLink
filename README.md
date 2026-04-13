@@ -1,6 +1,11 @@
 # ChamaLink - Group Savings Management App
 
 ![Status](https://img.shields.io/badge/Status-Work%20in%20Progress-orange)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 
 A modern, full-stack web application for managing group savings (Chama) with beautiful UI/UX, real-time tracking, and smart reminders.
 
