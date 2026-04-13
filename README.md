@@ -1,5 +1,7 @@
 # ChamaLink - Group Savings Management App
 
+![Status](https://img.shields.io/badge/Status-Work%20in%20Progress-orange)
+
 A modern, full-stack web application for managing group savings (Chama) with beautiful UI/UX, real-time tracking, and smart reminders.
 
 ## 🌟 Features
